@@ -70,7 +70,7 @@ when summary statistics on Pr(y=1|z) and/or Pr(t=1|z) for each z=0,1 are availab
 We first call the dataset included in the package.
 
 {p 4 4 2}
-		. use GKB, clear
+		. use GKB_persuasio, clear
 
 {p 4 4 2}
 We now compute summary statistics.
