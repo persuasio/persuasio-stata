@@ -1,0 +1,574 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/sokbaelee/Dropbox/Github/persuasio-stata/persuasio_example.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}13 Nov 2022, 11:55:55
+{txt}
+{com}. *************************************
+. **** Examples for persuasio.ado *****
+. *************************************
+. 
+. * Data summary
+. 
+. use GKB_persuasio, clear
+{txt}
+{com}. by post, sort: tab voteddem_all readsome
+
+{txt}{hline}
+-> post = 0
+
+ Voted for {c |}
+  Democrat {c |}
+   in 2005 {c |}
+       Gub {c |}
+ election, {c |} Reads paper at least
+  set to 0 {c |}   several times per
+if did not {c |}         week
+      vote {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}       162        130 {txt}{c |}{res}       292 
+{txt}         1 {c |}{res}        46         77 {txt}{c |}{res}       123 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}       208        207 {txt}{c |}{res}       415 
+
+{txt}{hline}
+-> post = 1
+
+ Voted for {c |}
+  Democrat {c |}
+   in 2005 {c |}
+       Gub {c |}
+ election, {c |} Reads paper at least
+  set to 0 {c |}   several times per
+if did not {c |}         week
+      vote {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+         0 {c |}{res}        94         93 {txt}{c |}{res}       187 
+{txt}         1 {c |}{res}        31         68 {txt}{c |}{res}        99 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}       125        161 {txt}{c |}{res}       286 
+
+{txt}
+{com}. 
+. *************************************
+. **** Examples without Covariates ****
+. *************************************
+. 
+. * The first example conducts inference on APR when y,t,z are observed.
+. 
+. persuasio apr voteddem_all readsome post, level(80) method("normal")
+ 
+{txt}{hline 65}
+{bf:persuasio4ytz:} Causal inference on the Average Persuasion Rate
+ when outcome, instrument and instrument are observed
+{hline 65}
+ 
+ - Binary outcome: voteddem_all
+ - Binary treatment: readsome
+ - Binary instrument: post
+ 
+{hline 25}{c TT}{hline 40}
+               Parameter {c |}{col 28}Bound Estimate{col 48}80% Conf. Interval
+{hline 25}{c +}{hline 40}
+ Average Persuasion Rate {c |}{res}{col 27} .070732 {col 33} .634288 {col 47}  .02881 {col 53} .661059 
+{txt}{hline 25}{c BT}{hline 40}
+ 
+Note: 80% conf. interval is based on normal approximation
+       using the method of Stoye (2009).                      
+       Conf. interval is missing if covariates are present.
+       Use option bootstrap for that case.
+ 
+Reference: Jun and Lee (2022), arXiv:1812.02276 [econ.EM]
+
+{com}. 
+. set seed 339487731
+{txt}
+{com}. persuasio apr voteddem_all readsome post, ///
+>         level(80) method("bootstrap") nboot(100)
+ 
+{txt}{hline 65}
+{bf:persuasio4ytz:} Causal inference on the Average Persuasion Rate
+ when outcome, instrument and instrument are observed
+ along with covariates
+{hline 65}
+ 
+ - Binary outcome: voteddem_all
+ - Binary treatment: readsome
+ - Binary instrument: post
+ - Covariates (if exist): 
+ - Regression model (if specified): 
+ 
+{res}{txt}(running {bf:aprlb} on estimation sample)
+
+Bootstrap replications ({res}100{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..................................................   100
+{res}
+{txt}{col 1}Bootstrap results{col 60}{lalign 13:Number of obs}{col 73} = {res}{ralign 3:701}
+{txt}{col 60}{lalign 13:Replications}{col 73} = {res}{ralign 3:100}
+{p2colset 7 16 20 2}{...}
+
+{txt}{p2col :Command:}{res:aprlb voteddem_all post, model("") }{p_end}
+{p2colset 10 16 20 2}{...}
+{p2col :coef:}{res:e(lb_coef)}{p_end}
+{res}{txt}(running {bf:aprub} on estimation sample)
+
+Bootstrap replications ({res}100{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..................................................   100
+{res}
+{txt}{col 1}Bootstrap results{col 60}{lalign 13:Number of obs}{col 73} = {res}{ralign 3:701}
+{txt}{col 60}{lalign 13:Replications}{col 73} = {res}{ralign 3:100}
+{p2colset 7 16 20 2}{...}
+
+{txt}{p2col :Command:}{res:aprub voteddem_all readsome post, model("") }{p_end}
+{p2colset 10 16 20 2}{...}
+{p2col :coef:}{res:e(ub_coef)}{p_end}
+ 
+{hline 25}{c TT}{hline 40}
+               Parameter {c |}{col 28}Bound Estimate{col 48}80% Conf. Interval
+{hline 25}{c +}{hline 40}
+ Average Persuasion Rate {c |}{res}{col 27} .070732 {col 33} .634288 {col 47} .038804 {col 53}  .65833 
+{txt}{hline 25}{c BT}{hline 40}
+ 
+Note: 80% conf. interval is based on percentile bootstrap.
+     The conf. level is one-sided for the lower and upper bounds separately.
+ 
+Reference: Jun and Lee (2022), arXiv:1812.02276 [econ.EM]
+
+{com}.         
+. * The second example conducts inference on LPR when y,t,z are observed.
+.                 
+. persuasio lpr voteddem_all readsome post, level(80) method("normal") 
+ 
+{txt}{hline 65}
+{bf:persuasio4ytz2lpr:} Causal inference on the local Persuasion rate
+ when outcome, instrument and instrument are observed
+{hline 65}
+ 
+ - Binary outcome: voteddem_all
+ - Binary treatment: readsome
+ - Binary instrument: post
+ - Covariates (if exist): 
+ - Regression model (if specified): 
+ 
+{hline 25}{c TT}{hline 40}
+               Parameter {c |}{col 28}Estimate{col 48}80% Conf. Interval
+{hline 25}{c +}{hline 40}
+   Local Persuasion Rate {c |}{res}{col 27} .806747 {col 47} .124333 {col 53}       1 
+{txt}{hline 25}{c BT}{hline 40}
+ 
+Note: 80% conf. interval is based on normal approximation.
+   Conf. interval is missing (given as [0,1])  if interactions are
+   allowed between x and z. Use option bootstrap for that case.
+ 
+Reference: Jun and Lee (2022), arXiv:1812.02276 [econ.EM]
+
+{com}. 
+. * The third example conducts inference on APR and LPR when y,z are observed only.               
+. 
+. persuasio yz voteddem_all post, level(80) method("normal")
+ 
+{txt}{hline 65}
+{bf:persuasio4yz:} Causal inference on the average persuasion rate
+ when binary outcomes and binary instruments are observed
+{hline 65}
+ 
+ - Binary outcome: voteddem_all
+ - Binary instrument: post
+ 
+{hline 13}{c TT}{hline 40}
+   Parameter {c |}{col 16} Estimate {col 30}[80% Conf. Interval]
+{hline 13}{c +}{hline 40}
+ Lower Bound {c |}{res}{col 17} .070732 {col 32} .028802        1 
+{txt}{hline 13}{c BT}{hline 40}
+ 
+Note: 80% one-sided conf. interval is based on normal approximation.
+ 
+Reference: Jun and Lee (2022), arXiv:1812.02276 [econ.EM]
+
+{com}. 
+. * The fourth example considers the case when we have summary statistics on Pr(y=1|z) and/or Pr(t=1|z).
+. 
+. foreach var in voteddem_all readsome {c -(} 
+{txt}  2{com}.         foreach treat in 0 1 {c -(}
+{txt}  3{com}.                 qui sum `var' if post == `treat'
+{txt}  4{com}.                 scalar `var'_ `treat' = r(mean)
+{txt}  5{com}.         {c )-}
+{txt}  6{com}. {c )-}
+{err}varlist not allowed
+{txt}{search r(101), local:r(101);}
+
+end of do-file
+
+{search r(101), local:r(101);}
+
+{com}. do "/Users/sokbaelee/Dropbox/Github/persuasio-stata/print_helpfiles.do"
+{txt}
+{com}. foreach topic in persuasio aprlb aprub calc4persuasio persuasio4yz persuasio4ytz lpr4ytz persuasio4ytz2lpr  {c -(}
+{txt}  2{com}.     
+.         markdoc `topic'.ado, export(sthlp) replace
+{txt}  3{com}.         
+.     translate `topic'.sthlp `topic'.pdf, translator(smcl2pdf) replace header(off) logo(off) pagesize(letter)
+{txt}  4{com}.         
+.         copy `topic'.pdf docs/`topic'.pdf, replace
+{txt}  5{com}.         
+.         rm `topic'.pdf
+{txt}  6{com}. {c )-}
+{txt}{p}(MarkDoc created {bf:{browse "persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprlb.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprlb.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprub.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprub.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "calc4persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+calc4persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4yz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4yz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "lpr4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+lpr4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz2lpr.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz2lpr.pdf{rm}
+not found)
+{p_end}
+
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. do "/Users/sokbaelee/Dropbox/Github/persuasio-stata/print_helpfiles.do"
+{txt}
+{com}. foreach topic in persuasio aprlb aprub calc4persuasio persuasio4yz persuasio4ytz lpr4ytz persuasio4ytz2lpr  {c -(}
+{txt}  2{com}.     
+.         markdoc `topic'.ado, export(sthlp) replace
+{txt}  3{com}.         
+.     translate `topic'.sthlp `topic'.pdf, translator(smcl2pdf) replace header(off) logo(off) pagesize(letter)
+{txt}  4{com}.         
+.         copy `topic'.pdf docs/`topic'.pdf, replace
+{txt}  5{com}.         
+.         rm `topic'.pdf
+{txt}  6{com}. {c )-}
+{txt}{p}(MarkDoc created {bf:{browse "persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprlb.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprlb.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprub.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprub.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "calc4persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+calc4persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4yz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4yz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "lpr4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+lpr4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz2lpr.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz2lpr.pdf{rm}
+not found)
+{p_end}
+
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. do "/Users/sokbaelee/Dropbox/Github/persuasio-stata/print_helpfiles.do"
+{txt}
+{com}. foreach topic in persuasio aprlb aprub calc4persuasio persuasio4yz persuasio4ytz lpr4ytz persuasio4ytz2lpr  {c -(}
+{txt}  2{com}.     
+.         markdoc `topic'.ado, export(sthlp) replace
+{txt}  3{com}.         
+.     translate `topic'.sthlp `topic'.pdf, translator(smcl2pdf) replace header(off) logo(off) pagesize(letter)
+{txt}  4{com}.         
+.         copy `topic'.pdf docs/`topic'.pdf, replace
+{txt}  5{com}.         
+.         rm `topic'.pdf
+{txt}  6{com}. {c )-}
+{txt}{p}(MarkDoc created {bf:{browse "persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprlb.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprlb.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprub.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprub.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "calc4persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+calc4persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4yz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4yz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "lpr4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+lpr4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz2lpr.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz2lpr.pdf{rm}
+not found)
+{p_end}
+
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. do "/Users/sokbaelee/Dropbox/Github/persuasio-stata/print_helpfiles.do"
+{txt}
+{com}. foreach topic in persuasio aprlb aprub calc4persuasio persuasio4yz persuasio4ytz lpr4ytz persuasio4ytz2lpr  {c -(}
+{txt}  2{com}.     
+.         markdoc `topic'.ado, export(sthlp) replace
+{txt}  3{com}.         
+.     translate `topic'.sthlp `topic'.pdf, translator(smcl2pdf) replace header(off) logo(off) pagesize(letter)
+{txt}  4{com}.         
+.         copy `topic'.pdf docs/`topic'.pdf, replace
+{txt}  5{com}.         
+.         rm `topic'.pdf
+{txt}  6{com}. {c )-}
+{txt}{p}(MarkDoc created {bf:{browse "persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprlb.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprlb.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprub.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprub.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "calc4persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+calc4persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4yz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4yz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "lpr4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+lpr4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz2lpr.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz2lpr.pdf{rm}
+not found)
+{p_end}
+
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. do "/Users/sokbaelee/Dropbox/Github/persuasio-stata/print_helpfiles.do"
+{txt}
+{com}. foreach topic in persuasio aprlb aprub calc4persuasio persuasio4yz persuasio4ytz lpr4ytz persuasio4ytz2lpr  {c -(}
+{txt}  2{com}.     
+.         markdoc `topic'.ado, export(sthlp) replace
+{txt}  3{com}.         
+.     translate `topic'.sthlp `topic'.pdf, translator(smcl2pdf) replace header(off) logo(off) pagesize(letter)
+{txt}  4{com}.         
+.         copy `topic'.pdf docs/`topic'.pdf, replace
+{txt}  5{com}.         
+.         rm `topic'.pdf
+{txt}  6{com}. {c )-}
+{txt}{p}(MarkDoc created {bf:{browse "persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprlb.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprlb.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "aprub.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+aprub.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "calc4persuasio.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+calc4persuasio.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4yz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4yz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "lpr4ytz.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+lpr4ytz.pdf{rm}
+not found)
+{p_end}
+{p}(MarkDoc created {bf:{browse "persuasio4ytz2lpr.sthlp"}})
+
+{p 0 4 2}
+(file {bf}
+persuasio4ytz2lpr.pdf{rm}
+not found)
+{p_end}
+
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. 

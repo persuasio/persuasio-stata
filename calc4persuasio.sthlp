@@ -126,7 +126,7 @@ GPL-3
 {title:References}
 
 {p 4 4 2}
-Sung Jae Jun and Sokbae Lee (2019), 
+Sung Jae Jun and Sokbae Lee (2022), 
 Identifying the Effect of Persuasion, 
 {browse "https://arxiv.org/abs/1812.02276":arXiv:1812.02276 [econ.EM]} 
 
@@ -134,7 +134,7 @@ Identifying the Effect of Persuasion,
 {title:Version}
 
 {p 4 4 2}
-0.1.0 30 January 2021
+0.2.0 13 November 2022
 
 
 
