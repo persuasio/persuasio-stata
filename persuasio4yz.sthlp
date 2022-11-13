@@ -147,7 +147,7 @@ because bootstrap standard errors can be unreasonably large in applications.
 We first call the dataset included in the package.
 
 {p 4 4 2}
-		. use GKB, clear
+		. use GKB_persuasio, clear
 
 {p 4 4 2}
 The first example conducts inference on the APR without covariates, using normal approximation.

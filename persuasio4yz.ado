@@ -128,7 +128,7 @@ Examples
 
 We first call the dataset included in the package.
 
-		. use GKB, clear
+		. use GKB_persuasio, clear
 
 The first example conducts inference on the APR without covariates, using normal approximation.
 		

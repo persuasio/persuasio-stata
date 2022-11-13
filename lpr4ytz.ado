@@ -98,7 +98,7 @@ Examples
 
 We first call the dataset included in the package.
 
-		. use GKB, clear
+		. use GKB_persuasio, clear
 
 The first example estimates the LPR without covariates.
 		

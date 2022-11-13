@@ -1,8 +1,17 @@
 ---------------------------------------------------------------------------------
 Readme file for Statistical Software Components (SSC) Archive submission
-Date: 30 January 2021
+Date: 13 November 2022
 Contact information: Sokbae Lee, Columbia University, email: sl3841@columbia.edu
+Version: 0.2.0
 ---------------------------------------------------------------------------------
+
+- Updates on November 13, 2022: 
+
+	1. The cases with covariates are updated.
+
+	2. Standard errors are reported to be missing if `nlcom` does not produce standard errors due to singularity.   
+
+--------------------
 
 (1) Name of the Stata package: persuasio
 
@@ -10,7 +19,7 @@ Contact information: Sokbae Lee, Columbia University, email: sl3841@columbia.edu
 
 (3) Authors: Sung Jae Jun (Penn State University) and Sokbae Lee (Columbia University)
 
-(3) Description of the package (abstract): The stata PERSUASIO command estimates the effect of persuasion and conducts inference, using some of identification results obtained in Jun and Lee (2019, arXiv, https://arxiv.org/abs/1812.02276). 
+(3) Description of the package (abstract): The stata PERSUASIO command estimates the effect of persuasion and conducts inference, using some of identification results obtained in Jun and Lee (2022, arXiv, https://arxiv.org/abs/1812.02276). 
 
 (4) Language: Stata
 
@@ -53,5 +62,5 @@ Contact information: Sokbae Lee, Columbia University, email: sl3841@columbia.edu
 
 (8) Reference: 
 
-Sung Jae Jun and Sokbae Lee. 2019. Identifying the Effect of Persuasion. https://arxiv.org/abs/1812.02276.
+Sung Jae Jun and Sokbae Lee. 2022. Identifying the Effect of Persuasion. https://arxiv.org/abs/1812.02276.
 

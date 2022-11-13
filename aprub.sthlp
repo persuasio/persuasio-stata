@@ -113,7 +113,7 @@ It is recommended to use this package{c 39}s command {bf:persuasio} instead of c
 We first call the dataset included in the package.
 
 {p 4 4 2}
-		. use GKB, clear
+		. use GKB_persuasio, clear
 
 {p 4 4 2}
 The first example estimates the upper bound on the APR without covariates.
