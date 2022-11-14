@@ -53,7 +53,7 @@ The Stata module `persuasio` should be installed from within Stata by typing `ss
 - persuasio_example.do
 - GKB_persuasio.dta
 
-[A draft version of the manual is available in a pdf file](https://github.com/sokbae/persuasio/blob/master/docs/persuasio_stata_manual.pdf).
+[A draft version of the manual is available in a pdf file](https://github.com/persuasio/persuasio-stata/blob/master/docs/persuasio_stata_manual.pdf).
 
 ## Acknowledgment
 
