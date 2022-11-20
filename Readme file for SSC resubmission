@@ -1,15 +1,16 @@
 ---------------------------------------------------------------------------------
 Readme file for Statistical Software Components (SSC) Archive resubmission
-Date: 13 November 2022
+Date: 20 November 2022
 Contact information: Sokbae Lee, Columbia University, email: sl3841@columbia.edu
-Version: 0.2.0
+Stata module: persuasio
+Version: 0.2.1
 ---------------------------------------------------------------------------------
 
-- Updates on November 13, 2022: 
+- Updates on November 20, 2022: 
 
-	1. The cases with covariates are updated.
+	1. The required Stata version is now 16.1 
 
-	2. Standard errors are reported to be missing if `nlcom` does not produce standard errors due to singularity.   
+	2. r(table) is called after ereturn post to avoid syntax errrors.
 
 --------------------
 
@@ -23,7 +24,7 @@ Version: 0.2.0
 
 (4) Language: Stata
 
-(5) Requires: Stata version 14.2
+(5) Requires: Stata version 16.1
 
 (6) Key Words: persuasio, Communication, Media, Persuasion, Partial Identification, Treatment Effects
 
