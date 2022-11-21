@@ -10,7 +10,7 @@ Version: 0.2.1
 
 	1. The required Stata version is now 16.1 
 
-	2. r(table) is called after ereturn post to avoid syntax errrors.
+	2. r(table) is called after ereturn post to avoid syntax errors.
 
 --------------------
 
