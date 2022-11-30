@@ -2,13 +2,19 @@
 
 - Authors: Sung Jae Jun (Penn State University) and Sokbae Lee (Columbia University)
 
-- Language: Stata (Requires: Stata version 14.2)
+- Language: Stata (Requires: Stata version 16.1)
 
 - License: GPL-3
 
-- Version: 0.2.0
+- Version: 0.2.1
 
 ## News
+
+- Updates on November 20, 2022:
+
+	1. The required Stata version is now 16.1
+
+	2. r(table) is called after ereturn post to avoid syntax errors.
 
 - Updates on November 13, 2022: 
 
@@ -18,9 +24,7 @@
 
 ## Abstract 
 
-This repository contains `persuasio` command that estimates
-the effect of persuasion and conducts inference, using some of identification results obtained in Jun and Lee (2022, arXiv, https://arxiv.org/abs/1812.02276). 
-Stata commands are posted at the [Statistical Software Components (SSC) archive](https://ideas.repec.org/c/boc/bocode/s458902.html). 
+This repository contains `persuasio` command that estimates the effect of persuasion and conducts inference, using some of identification results obtained in Jun and Lee (2022, arXiv, https://arxiv.org/abs/1812.02276). Stata commands are posted at the [Statistical Software Components (SSC) archive](https://ideas.repec.org/c/boc/bocode/s458902.html). 
 
 ## Installation
 
